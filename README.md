@@ -89,3 +89,29 @@ $app->user->getUserByCode($code);
 
 ---
 
+## Helpers方法
+
+```php
+getDinginfo($code)
+```
+
+入参为 `$code`
+
+返回值为一个包含信息的对象
+
+```json
+{
+     'name'=>'汤海',
+      'tel' =>'12312341234',
+      'role'=>'实验室中心主任'
+}
+```
+
+使用方法：
+
+```php
+        $code = 'xxxxx';
+        $res  = getDinginfo($code);
+        $tel  =  $res->tel;
+```
+
