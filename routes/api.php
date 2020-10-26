@@ -16,5 +16,10 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::prefix('/approval')->namespace('Approval')->group(function(){
+    Route::get('pass','ExamController@pass');
+    Route::get('noPass','ExamController@noPass');
+});
+
 
 Route::get('test','TestController@test');
