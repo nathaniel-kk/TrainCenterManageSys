@@ -9,4 +9,6 @@ class Approve extends Model
     protected $table = "approve";
     public $timestamps = true;
     protected $guarded = [];
+
+
 }
