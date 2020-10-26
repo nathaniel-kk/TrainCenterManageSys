@@ -11,7 +11,7 @@ if (!function_exists('json_response')) {
      */
     function json_response($code, $msg, $data = null, $status = 200)
     {
-        return response()->json(array('code' => $code, 'msg' => $msg, 'data' => $data == null ? null : publicEncrypt($data)), $status);
+        return response()->json(array('code' => $code, 'msg' => $msg, 'data' => $data == null ? null : $data), $status);
     }
 }
 if (!function_exists('json_success')) {
