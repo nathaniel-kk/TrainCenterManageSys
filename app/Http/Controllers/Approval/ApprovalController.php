@@ -7,9 +7,9 @@ use App\Http\Requests\Approval\ClassifyRequest;
 use App\Http\Requests\Approval\ReShowRequest;
 use App\Http\Requests\Approval\SelectRequest;
 use App\Http\Requests\Approval\ShowRequest;
+use App\Models\EquipmentBorrow;
 use App\Models\Form;
-use Illuminate\Http\Request;
-use function Couchbase\zlibCompress;
+use App\Models\OpenLaboratoryLoan;
 
 class ApprovalController extends Controller
 {
@@ -65,11 +65,11 @@ class ApprovalController extends Controller
         $res = Form::zc_reShow($request);
         $zc = 0;
         if($res==1){
-            $zc = Form::zc_reShowSys($request);
+            $zc = OpenLaboratoryLoan::zc_reShowSys($request);
         }elseif($res==5){
-            $zc = Form::zc_reShowOpenSys($request);
+            $zc = OpenLaboratoryLoan::zc_reShowOpenSys($request);
         }elseif($res==3){
-            $zc = Form::zc_reShowSysIns($request);
+            $zc = EquipmentBorrow::zc_reShowSysIns($request);
         }
         return $zc?
             json_success('待审批表单展示成功!',$zc,200):
