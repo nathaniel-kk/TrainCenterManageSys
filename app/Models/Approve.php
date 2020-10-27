@@ -10,6 +10,7 @@ class Approve extends Model
     public $timestamps = true;
     protected $guarded = [];
 
+
     //更新借用部门人name
     public static function updateName($form_id,$role,$name){
         $form_status = Form::findStatus($form_id);
@@ -85,4 +86,5 @@ class Approve extends Model
             return null;
         }
     }
+
 }
