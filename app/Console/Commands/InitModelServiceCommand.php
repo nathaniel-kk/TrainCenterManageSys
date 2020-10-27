@@ -45,7 +45,7 @@ class InitModelServiceCommand extends Command
 
         foreach ($files as $file) {
             $modelName = str_replace(
-                [app_path(), '/', '.php'],
+                [app_path(), '/', 'q.php'],
                 ['App', '\\', ''],
                 $file->getRealPath()
             );
@@ -121,7 +121,7 @@ class InitModelServiceCommand extends Command
  /**
  * Class $repositoryName
  * @package App\Repositories
- */           
+ */
 class $repositoryName extends CommonRepository {
 
 }";
