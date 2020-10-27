@@ -44,14 +44,14 @@ class OpenLaboratoryLoan extends Model
      * @param $request
      * return [string]
      */
-    public static function zc_reShowOpenSys($request)
+    public static function zc_reShowOpenSys($form_id)
     {
         try {
             $res1 = OpenLaboratoryLoan::join('form','open_laboratory_loan.form_id','form.form_id')
                 ->select('open_laboratory_loan.*','form.applicant_name')
-                ->where('open_laboratory_loan.form_id',$request['form_id'])
+                ->where('open_laboratory_loan.form_id',$form_id)
                 ->get();
-            $res2 = OpenLaboratoryStudentList::where('form_id',$request['form_id'])
+            $res2 = OpenLaboratoryStudentList::where('form_id',$form_id)
                 ->get();
             $res1['data']=$res2;
             return $res1?
@@ -71,14 +71,14 @@ class OpenLaboratoryLoan extends Model
      * @param $request
      * return [string]
      */
-    public static function zc_reShowSys($request)
+    public static function zc_reShowSys($form_id)
     {
         try {
             $res = LaboratoryLoan::join('laboratory', 'laboratory_loan.laboratory_id', 'laboratory.laboratory_id')
                 ->join('class', 'laboratory_loan.class_id', 'class.class_id')
                 ->join('form','laboratory_loan.form_id','form.form_id')
                 ->select('laboratory_loan.*', 'laboratory.laboratory_name', 'class.class_name','form.applicant_name')
-                ->where('laboratory_loan.form_id',$request['form_id'])
+                ->where('laboratory_loan.form_id',$form_id)
                 ->get();
             return $res?
                 $res:

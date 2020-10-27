@@ -44,13 +44,13 @@ class EquipmentBorrow extends Model
      * @param $request
      * return [string]
      */
-    public static function zc_reShowSysIns($request)
+    public static function zc_reShowSysIns($form_id)
     {
         try {
-            $res1 = EquipmentBorrow::where('form_id','=',$request['form_id'])
+            $res1 = EquipmentBorrow::where('form_id','=',$form_id)
                 ->get();
             $res2 = EquipmentBorrowChecklist::join('equipment','equipment.equipment_id','equipment_borrow_checklist.equipment_id')
-                ->where('equipment_borrow_checklist.form_id','=',$request['form_id'])
+                ->where('equipment_borrow_checklist.form_id','=',$form_id)
                 ->get();
             $res1['data']=$res2;
             return $res1?
