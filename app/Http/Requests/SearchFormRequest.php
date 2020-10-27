@@ -27,7 +27,7 @@ class SearchFormRequest extends FormRequest
     {
         return [
             'code' => 'required',
-            'data' => 'required'
+            'form_id' => 'required'
         ];
     }
 
