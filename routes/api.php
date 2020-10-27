@@ -20,6 +20,18 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('test','TestController@test');
 
+Route::prefix('report')->namespace('Fill')->group(function(){
+    Route::post('operationreport','OperationReportController@operationReport');//实验室运行记录填报
+    Route::get('nameview','OperationReportController@nameView');//申请人回显
+    Route::get('classdrop','OperationReportController@classDrop');//专业班级下拉框
+    Route::get('laboratorydrop','OperationReportController@laboratoryDrop');//实验室下拉框
+});//--lzz
+
+
+Route::prefix('view')->namespace('Fill')->group(function(){
+    Route::get('formview','OperationReportController@formView');//实验室运行记录填报
+});//--lzz
+
 /**
  * @author HuWeiChen <github.com/nathaniel-kk>
  */
@@ -39,4 +51,3 @@ Route::prefix('fill')->namespace('Fill')->group(function () {
     Route::get('viewopenlabuse', 'OpenLabUseController@viewOpenLabUse'); //开放实验室使用申请表单展示
     Route::get('viewopenlabmanuse', 'OpenLabUseController@viewOpenLabManUse'); //开放实验室使用申请人员名单展示
 });
-

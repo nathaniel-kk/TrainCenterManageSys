@@ -11,6 +11,10 @@ class Laboratory extends Model
     protected $guarded = [];
 
     /**
+     * 实验室下拉框
+     * @return |null
+     */
+    public static function lzz_laboratoryDrop(){
      * 填报实验室借用申请实验室名称编号联动
      * @author HuWeiChen <github.com/nathaniel-kk>
      * @param [String] $laboratory_name
