@@ -39,3 +39,4 @@ Route::prefix('fill')->namespace('Fill')->group(function () {
     Route::get('viewopenlabuse', 'OpenLabUseController@viewOpenLabUse'); //开放实验室使用申请表单展示
     Route::get('viewopenlabmanuse', 'OpenLabUseController@viewOpenLabManUse'); //开放实验室使用申请人员名单展示
 });
+
