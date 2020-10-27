@@ -18,3 +18,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('test','TestController@test');
+
+Route::prefix('site')->namespace('DataScreen')->group(function (){
+    Route::get('/showxibu','SiteScreenController@xibuborrow');
+    Route::get('/usingsite','SiteScreenController@usingsite');
+    Route::get('/siteranking','SiteScreenController@siteranking');
+    Route::get('/sitenumber','SiteScreenController@sitenumber');
+    Route::get('/openlab','SiteScreenController@openlab');
+
+});
