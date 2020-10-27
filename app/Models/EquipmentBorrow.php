@@ -11,6 +11,7 @@ class EquipmentBorrow extends Model
     protected $guarded = [];
 
     /**
+
      * 借用设备表单详情展示
      * @author yangsiqi <github.com/Double-R111>
      * @param $request
@@ -31,7 +32,29 @@ class EquipmentBorrow extends Model
                 ->get();
             $data1['data'] = $data2;
             return $data1 ?
-                $data1 :
+                $data1 : false;
+        } catch (\Exception $e) {
+            logError('搜索错误', [$e->getMessage()]);
+            return false;
+        }
+    }
+
+     * 回显开放实验室使用申请
+     * @auther ZhongChun <github.com/RobbEr929>
+     * @param $request
+     * return [string]
+     */
+    public static function zc_reShowSysIns($request)
+    {
+        try {
+            $res1 = EquipmentBorrow::where('form_id','=',$request['form_id'])
+                ->get();
+            $res2 = EquipmentBorrowChecklist::join('equipment','equipment.equipment_id','equipment_borrow_checklist.equipment_id')
+                ->where('equipment_borrow_checklist.form_id','=',$request['form_id'])
+                ->get();
+            $res1['data']=$res2;
+            return $res1?
+                $res1:
                 false;
         } catch (\Exception $e) {
             logError('搜索错误', [$e->getMessage()]);
