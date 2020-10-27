@@ -20,7 +20,8 @@ class ApprovalController extends Controller
      * @return json
      */
     public static function show(ShowRequest $request){
-        $res = Form::zc_show($request);
+        $code = $request['code'];
+        $res = Form::zc_show($code);
         return $res?
             json_success('待审批表单展示成功!',$res,200):
             json_fail('待审批表单展示失败!',null,100);
@@ -34,7 +35,9 @@ class ApprovalController extends Controller
      * @return json
      */
     public static function classify(ClassifyRequest $request){
-        $res = Form::zc_classify($request);
+        $code = $request['code'];
+        $type_name = $request['type_name'];
+        $res = Form::zc_classify($code,$type_name);
         return $res?
             json_success('待审批表单展示成功!',$res,200):
             json_fail('待审批表单展示失败!',null,100);
@@ -48,7 +51,9 @@ class ApprovalController extends Controller
      * @return json
      */
     public static function select(SelectRequest $request){
-        $res = Form::zc_select($request);
+        $code = $request['code'];
+        $data = $request['data'];
+        $res = Form::zc_select($code,$data);
         return $res?
             json_success('待审批表单展示成功!',$res,200):
             json_fail('待审批表单展示失败!',null,100);
@@ -62,14 +67,15 @@ class ApprovalController extends Controller
      * @return json
      */
     public static function reShow(ReShowRequest $request){
-        $res = Form::zc_reShow($request);
+        $form_id = $request['form_id'];
+        $res = Form::zc_reShow($form_id);
         $zc = 0;
         if($res==1){
-            $zc = OpenLaboratoryLoan::zc_reShowSys($request);
+            $zc = OpenLaboratoryLoan::zc_reShowSys($form_id);
         }elseif($res==5){
-            $zc = OpenLaboratoryLoan::zc_reShowOpenSys($request);
+            $zc = OpenLaboratoryLoan::zc_reShowOpenSys($form_id);
         }elseif($res==3){
-            $zc = EquipmentBorrow::zc_reShowSysIns($request);
+            $zc = EquipmentBorrow::zc_reShowSysIns($form_id);
         }
         return $zc?
             json_success('待审批表单展示成功!',$zc,200):

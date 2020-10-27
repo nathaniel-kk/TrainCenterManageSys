@@ -21,10 +21,10 @@ class Form extends Model
      * @param $request
      * return [string]
      */
-    public static function zc_show($request)
+    public static function zc_show($code)
     {
         try {
-            $info  = getDinginfo($request['code']);
+            $info  = getDinginfo($code);
             $role = $info->role;
             $name = $info->name;
             if($role=="借用部门负责人"){
@@ -57,10 +57,10 @@ class Form extends Model
      * @param $request
      * return [string]
      */
-    public static function zc_classify($request)
+    public static function zc_classify($code,$type_name)
     {
         try {
-            $info  = getDinginfo($request['code']);
+            $info  = getDinginfo($code);
             $role = $info->role;
             $name = $info->name;
             if($role=="借用部门负责人"){
@@ -76,7 +76,7 @@ class Form extends Model
                 ->select('form.form_id','form.applicant_name','form_type.type_name')
                 ->where('form.applicant_name','!=',$name)
                 ->where('form.form_status','=',$rule)
-                ->where('type_name','=',$request['type_name'])
+                ->where('type_name','=',$type_name)
                 ->orderBy('form.created_at','desc')
                 ->get();
             return $res?
@@ -94,10 +94,10 @@ class Form extends Model
      * @param $request
      * return [string]
      */
-    public static function zc_select($request)
+    public static function zc_select($code,$data)
     {
         try {
-            $info  = getDinginfo($request['code']);
+            $info  = getDinginfo($code);
             $role = $info->role;
             $name = $info->name;
             if($role=="借用部门负责人"){
@@ -109,7 +109,6 @@ class Form extends Model
             }elseif($role=="设备管理员"){
                 $rule = 7;
             }
-            $data = $request['data'];
             $res = Form::join('form_type','form.type_id','form_type.type_id')
                 ->select('form.form_id','form.applicant_name','form_type.type_name')
                 ->where('form.applicant_name','!=',$name)
@@ -133,10 +132,10 @@ class Form extends Model
      * @param $request
      * return [string]
      */
-    public static function zc_reShow($request)
+    public static function zc_reShow($form_id)
     {
         try {
-            $zc = Form::where('form_id','=',$request['form_id'])
+            $zc = Form::where('form_id','=',$form_id)
                 ->value('type_id');
             return $zc?
                 $zc:
