@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Http\Requests\ShowAllRequest;
-use http\Env\Request;
 use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Support\Facades\DB;
@@ -17,6 +16,7 @@ class Form extends Model
     protected $table = "form";
     public $timestamps = true;
     protected $guarded = [];
+    public $primaryKey="form_id";
 
 
     /**
@@ -45,19 +45,19 @@ class Form extends Model
      * @return false
      * @author yangsiqi <github.com/Double-R111>
      */
-    public static function ysq_getAll($request)
+    public static function ysq_getAll($code)
     {
         try {
-            $info = getDinginfo($request['code']);
+            $info = getDinginfo($code);
             $role = $info->role;
             $name = $info->name;
-            if ($role == '借用部门负责人') {
+            if ($role == "借用部门负责人") {
                 $lev = 1;
-            } elseif ($role == '实验室借用管理员') {
+            } elseif ($role == "实验室借用管理员") {
                 $lev = 3;
-            } elseif ($role == '实验室中心主任') {
+            } elseif ($role == "实验室中心主任") {
                 $lev = 5;
-            } elseif ($role == '设备管理员') {
+            } elseif ($role == "设备管理员") {
                 $lev = 7;
             }
             $data = Form::join('form_type', 'form.type_id', 'form_type.type_id')
@@ -238,17 +238,16 @@ class Form extends Model
             return null;
         }
     }
-  
-     * 通过申请人姓名和表单编号模糊查询表单
+
+    /* 通过申请人姓名和表单编号模糊查询表单
      * @author yangsiqi <github.com/Double-R111>
      * @param $request
      * @return false
      */
-    public static function ysq_categoryQuery($request)
+    public static function ysq_Query($infos,$code)
     {
         try {
-            $num = $request['data'];
-            $info = getDinginfo($request['code']);
+            $info = getDinginfo($code);
             $role = $info->role;
             $name = $info->name;
             if ($role == '借用部门负责人') {
@@ -260,13 +259,14 @@ class Form extends Model
             } elseif ($role == '设备管理员') {
                 $lev = 7;
             }
+
             $data = Form::join('form_type', 'form.type_id', 'form_type.type_id')
                 ->join('form_status', 'form.form_status', 'form_status.status_id')
-                ->select('form.form_id', 'form.applicant_name', 'form_type.type_name', '')
+                ->select('form.form_id', 'form.applicant_name', 'form_type.type_name', 'form_status.status_name')
                 ->where('form.applicant_name', '!=', $name)
                 ->where('form.form_status', '=', $lev)
-                ->where('form.form_id', '=', $num)
-                ->orWhere('form.applicant_name', '=', $num)
+                ->where('form.form_id', '=', $infos)
+                ->orWhere('form.applicant_name', '=', $infos)
                 ->orderBy('form.created_at', 'desc')
                 ->get();
             return $data ? $data : false;
@@ -275,7 +275,7 @@ class Form extends Model
             return false;
         }
     }
-     * 分类查询待审批表单
+     /* 分类查询待审批表单
      * @auther ZhongChun <github.com/RobbEr929>
      * @param $request
      * return [string]
@@ -319,9 +319,9 @@ class Form extends Model
      * @return false
      * @author yangsiqi <github.com/Double-R111>
      */
-    public static function ysq_searchType($request)
+    public static function ysq_searchType($type_name,$code)
     {
-        $info = getDinginfo($request['code']);
+        $info = getDinginfo($code);
         $role = $info->role;
         $name = $info->name;
         if ($role == '借用部门负责人') {
@@ -335,11 +335,11 @@ class Form extends Model
         }
         try {
             $data = Form::join('form_type', 'form.type_id', 'form_type.type_id')
-                ->join('form_status', 'form.form_status', 'form_status.status_name')
+                ->join('form_status', 'form.form_status', 'form_status.status_id')
                 ->select('form.applicant_name', 'form.form_id', 'form_type.type_name', 'form_status.status_name')
                 ->where('form.form_status', '=', $lev)
                 ->where('form.applicant_name', '!=', $name)
-                ->where('type_name', '=', $request['type_name'])
+                ->where('type_name', '=', $type_name)
                 ->orderby('form.created_at', 'desc')
                 ->get();
             return $data ? $data : false;
@@ -349,7 +349,7 @@ class Form extends Model
              }
     }
 
-     * 分类查询待审批表单
+     /* 分类查询待审批表单
      * @auther ZhongChun <github.com/RobbEr929>
      * @param $request
      * return [string]
@@ -393,10 +393,10 @@ class Form extends Model
      * @param $request
      * @return false
      */
-    public static function ysq_reshowAll($request)
+    public static function ysq_reshowAll($form_id)
     {
         try {
-            $data = Form::where('form_id', '=', $request['form_id'])
+            $data = Form::where('form_id', '=', $form_id)
                 ->value('type_id');
             return $data ? $data : false;
         } catch (\Exception $e) {

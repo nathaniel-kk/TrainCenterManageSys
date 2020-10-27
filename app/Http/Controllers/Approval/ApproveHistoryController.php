@@ -7,7 +7,6 @@ use App\Models\Approve;
 use Illuminate\Http\Request;
 use App\Models\Form;
 use App\Http\Requests\ShowAllRequest;
-use App\Http\Requests\ControlAllRequest;
 use App\Http\Requests\SearchFormRequest;
 use App\Http\Requests\SelectTypeRequest;
 use App\Http\Requests\ReshowAllRequest;
@@ -25,7 +24,8 @@ class ApproveHistoryController extends Controller
      */
     public function showAll(ShowAllRequest $request)
     {
-        $infos = Form::ysq_getAll($request);
+        $code=$request['code'];
+        $infos = Form::ysq_getAll($code);
         return $infos ?
             json_success('表单展示成功', $infos, 200) :
             json_fail('表单展示失败', null, 100);
@@ -39,8 +39,10 @@ class ApproveHistoryController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function searchForm(SearchFormRequest $request)
-    {//$data=$request['form_id'];
-        $infos = Form::ysq_categoryQuery($request);
+    {
+        $id=$request['form_id'];
+        $code=$request['code'];
+        $infos = Form::ysq_Query($id,$code);
         return $infos ?
             json_success('表单查询成功', $infos, 200) :
             json_fail('表单查询失败', null, 100);
@@ -54,28 +56,30 @@ class ApproveHistoryController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function selectType(SelectTypeRequest $request)
-    {
-        $infos = Form::ysq_searchType($request);
+    { $code=$request['code'];
+    $type_name=$request['type_name'];
+        $infos = Form::ysq_searchType($type_name,$code);
         return $infos ?
             json_success('通过类型表单查询成功', $infos, 200) :
             json_fail('通过类型表单查询失败', null, 100);
     }
 
     /**
-     * 分类展示表单详情
+     * 分类展示各表单详情
      * @param ReshowAllRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function reshowAll(ReshowAllRequest $request)
     {
-        $num = Form::ysq_reshowAll($request);
+        $form_id=$request['form_id'];
+        $num = Form::ysq_reshowAll($form_id);
         $m = 0;
         if ($num == 1) {
-            $m = LaboratoryLoan::ysq_reshowLab($request);
+            $m = LaboratoryLoan::ysq_reshowLab($form_id);
         } elseif ($num == 3) {
-            $m = EquipmentBorrow::ysq_reshowIns($request);
+            $m = EquipmentBorrow::ysq_reshowIns($form_id);
         } elseif ($num == 5) {
-            $m = OpenLaboratoryLoan::ysq_reshowOpenLab($request);
+            $m = OpenLaboratoryLoan::ysq_reshowOpenLab($form_id);
         }
         return $m ?
             json_success('分类表单展示成功', $m, 200) :
