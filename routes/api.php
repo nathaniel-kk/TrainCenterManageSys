@@ -18,7 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 Route::prefix('/approval')->namespace('Approval')->group(function(){
     Route::get('pass','ExamController@pass');
-    Route::get('noPass','ExamController@noPass');
+    Route::post('noPass','ExamController@noPass');
 });
 
 

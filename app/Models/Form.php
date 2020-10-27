@@ -23,8 +23,7 @@ class Form extends Model
      * 获取表单种类
      * @author Dujingwen <github.com/DJWKK>
      * @param $form_id
-     *
-     * @return |null
+     * @return json
      *
      */
     public static function findType($form_id){
@@ -81,7 +80,7 @@ class Form extends Model
      * 获取表单状态
      * @author Dujingwen <github.com/DJWKK>
      * @param $form_id
-     * @return |null
+     * @return json
      */
     public static function findStatus($form_id){
         try{
@@ -135,7 +134,7 @@ class Form extends Model
      * 审核通过 更新表单状态（5之前的状态）
      * @author Dujingwen <github.com/DJWKK>
      * @param $form_status
-     * @return |null
+     * @return json
      */
     public static function updatedStatus($role,$form_id,$form_status){
         try{
@@ -154,8 +153,6 @@ class Form extends Model
         }
     }
 
-    //审核通过 更新表单状态
-
     /**
      * 审核通过 更新表单状态（5之后的状态）
      * @author Dujingwen <github.com/DJWKK>
@@ -163,7 +160,7 @@ class Form extends Model
      * @param $role
      * @param $form_id
      * @param $form_status
-     * @return |null
+     * @return json
      */
     public static function updatedStatuss($form_type,$role,$form_id,$form_status){
         try{
@@ -191,7 +188,7 @@ class Form extends Model
      * @param $role
      * @param $form_id
      * @param $form_status
-     * @return |null
+     * @return json
      */
     public static function noUpdateStatus($role,$form_id,$form_status){
         try{
@@ -200,6 +197,10 @@ class Form extends Model
                     ->increment('form_status',1);
                 return $data;
             }else if( $form_status == 3 && $role == '实验室借用管理员'){
+                $data = self::where('form_id',$form_id)
+                    ->increment('form_status',1);
+                return $data;
+            }else if($form_status == 5 && $role == '实验室中心主任'){
                 $data = self::where('form_id',$form_id)
                     ->increment('form_status',1);
                 return $data;
@@ -212,23 +213,18 @@ class Form extends Model
     /**
      * 审核不通过 更新表单状态（5之后的状态）
      * @author Dujingwen <github.com/DJWKK>
-     * @param $form_type
      * @param $role
      * @param $form_id
      * @param $form_status
-     * @return |null
+     * @return json
      */
-    public static function npUpdatedStatuss($form_type,$role,$form_id,$form_status){
+    public static function npUpdatedStatuss($role,$form_id,$form_status){
         try{
-            if(($form_type == 1 || $form_type == 5 || $form_type == 3)  && $form_status == 5 && $role == '实验室中心主任'){
+            if($form_status == 7 && $role == '设备管理员'){
                 $data = self::where('form_id',$form_id)
                     ->increment('form_status',1);
                 return $data;
-            }else if($form_type == 3 && $form_status == 7 && $role == '设备管理员'){
-                $data = self::where('form_id',$form_id)
-                    ->increment('form_status',1);
-                return $data;
-            }else if($form_type == 3 && $form_status == 9 && $role == '设备管理员'){
+            }else if($form_status == 9 && $role == '设备管理员'){
                 $data = self::where('form_id',$form_id)
                     ->increment('form_status',0);
                 return $data;
