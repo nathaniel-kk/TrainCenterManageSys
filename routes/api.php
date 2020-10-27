@@ -17,6 +17,22 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+
+/**
+ * @author yangsiqi <github.com/Double-R111>
+ */
+Route::prefix('approval')->namespace('Approval')->group(function () {
+    Route::get('showall', 'ApproveHistoryController@showAll');
+    Route::get('searchform', 'ApproveHistoryController@searchForm');
+    Route::get('selecttype', 'ApproveHistoryController@selectType');
+    Route::get('reshowlabloan', 'ApproveHistoryController@reshowLabLoan');
+    Route::get('reshowopenlab', 'ApproveHistoryController@reshowOpenLab');
+    Route::get('reshowlabins', 'ApproveHistoryController@reshowLabIns');
+});
+
+
+Route::get('test','TestController@test');
+
 /*
  * @auther ZhongChun <github.com/RobbEr929>
  */
@@ -29,3 +45,4 @@ Route::prefix('approval')->namespace('Approval')->group(function () {//审批展
     Route::get('reshowopensys','ApprovalController@reShowOpenSys');//回显开放实验室使用申请
     Route::get('reshowsysins','ApprovalController@reShowSysIns');//回显实验室仪器借用申请
 });
+
