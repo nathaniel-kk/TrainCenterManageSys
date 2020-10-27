@@ -11,6 +11,7 @@ class Approve extends Model
     public $timestamps = true;
     protected $guarded = [];
 
+<<<<<<< HEAD
     /**
      * 审核不通过 更改表中的姓名（5之前 包括5）
      * @param $form_id
@@ -18,6 +19,10 @@ class Approve extends Model
      * @param $name
      * @return json
      */
+=======
+
+    //更新借用部门人name
+>>>>>>> 0b88659c8d1002ceede1b200115b43addd00e8a1
     public static function updateName($form_id,$role,$name){
         $form_status = Form::findStatus($form_id);
         try{
@@ -175,4 +180,5 @@ class Approve extends Model
             return null;
         }
     }
+
 }
