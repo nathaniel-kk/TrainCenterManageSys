@@ -10,6 +10,25 @@ class Laboratory extends Model
     public $timestamps = true;
     protected $guarded = [];
 
+    /*
+     * 把所有实验室名称给前端
+     * @author caiwenpin <github.com/codercwp>
+     * return $data
+     */
+    public static function back(){
+        $data = self::select('laboratory_name')->get();
+        return $data;
+    }
+      /*
+      * 根据实验室名称返回实验室对应编号
+      * @author caiwenpin <github.com/codercwp>
+      * return $data
+      */
+    public static function move($name){
+        $result = self::where('laboratory_name',$name)->first();
+        $data = $result['laboratory_id'];
+        return $data;
+    }
     /**
      * 实验室下拉框
      * @return |null

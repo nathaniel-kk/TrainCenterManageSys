@@ -14,8 +14,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+//Route::middleware('auth:api')->get('/user', function (Request $request) {
+//    return $request->user();
+//});
+/**
+ * @author caiwenpin <github.com/codercwp>
+ */
+Route::prefix('/fill')->namespace('Fill')->group(function () {
+
+    Route::get('showall','CheckController@showAll');  //粗略展示一张表单中所有期末教学记录检查
+    Route::get('showone','CheckController@showOne');  //期末教学记录检查其中的某条详情
+
+
+    Route::get('teachback','WriteController@teachBack'); //把所有实验室名称给前端
+    Route::get('teachmove','WriteController@teachMove'); //把所有实验室名称给前端
+    Route::post('teachadd','WriteController@teachAdd'); //添加期末教学记录检查
+
 });
 
 Route::get('test','TestController@test');
