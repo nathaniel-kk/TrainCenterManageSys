@@ -37,7 +37,25 @@ class Equipment extends Model
     public static function tsy_equipmentSelect($equipment_id){
         try{
             $data = self::where('equipment_id',$equipment_id)
-                ->select("equipment_name",'model','number','annex')
+                ->select("equipment_name",'model','annex')
+                ->first();
+            return $data;
+        }catch (Exception $e){
+            logError("查找对应的设备失败",[$e->getMessage()]);
+            return null;
+        }
+    }
+    /**
+     * 通过设备id获取对应设备的详细信息
+     * @author tangshengyou
+     * @param
+     *  $equipment_id string 设备id
+     * @return array
+     */
+    public static function tsy_SelectById($equipment_id){
+        try{
+            $data = self::where('equipment_id',$equipment_id)
+                ->select("equipment_name",'model','annex','number','equipment_id')
                 ->first();
             return $data;
         }catch (Exception $e){

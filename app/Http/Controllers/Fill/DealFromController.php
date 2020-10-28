@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Fill;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\EquipmentBorrowingRequest;
+use App\Models\Approve;
 use App\Models\Equipment;
 use App\Models\EquipmentBorrow;
 use App\Models\EquipmentBorrowChecklist;
@@ -59,18 +60,22 @@ class DealFromController extends Controller
         $info['destine_end_time'] = $request['destine_end_time'];
         $res2 = Form::tsy_create($info);
         $res3 = EquipmentBorrow::tsy_create($info);
+
         for ($i =0;$i<count($equipment_array);$i++){
             $data = Equipment::tsy_SelectIdByName($equipment_array[$i]['equipment_name']);
-
             $info1['equipment_id'] =$data['equipment_id'];
             $info1['number'] = $equipment_array[$i]['number'];
-
             $res1 = EquipmentBorrowChecklist::tsy_create($info1,$form_id);
-
         }
-        if ($res1 == true && $res2 == true && $res3 == true){
+        if ($res1 == true && $res2 == true && $res3 == true ){
             return json_fail("填报成功",null,200);
         }else{
+            if ($res2==false){
+                Form::tsy_delete($form_id);
+            }
+            if ($res3==false){
+                EquipmentBorrow::tsy_delete($form_id);
+            }
             return json_fail("填报失败",null,100);
         }
     }

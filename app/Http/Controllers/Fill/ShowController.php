@@ -78,7 +78,6 @@ class ShowController extends Controller
         }else if ($data['form_status'] == 2 ||$data['form_status'] == 4||$data['form_status'] ==6||$data['form_status'] ==8){
             $data['form_status'] = "未通过";
         }
-
         return json_fail('查找成功',$data,200);
     }
 
@@ -98,7 +97,6 @@ class ShowController extends Controller
         $res  = getDinginfo($code);
         $name= $res->name;
         $data1 = Form::tsy_selectType($name);
-
         if ($data1 == null){
             return json_fail("查找失败",null,100);
         }
@@ -122,69 +120,49 @@ class ShowController extends Controller
                 $data1[$i]['type_id']="开放实验室使用申请单";
             }
         }
-
+        if ($type_name ==1){
+            $type_name="实验室借用申请表单";
+        }else if ($type_name ==2){
+            $type_name="期末实验教学检查记录表";
+        }else if ($type_name ==3){
+            $type_name ="实验室仪器设备借用单";
+        }else if ($type_name ==4){
+            $type_name="实验室运行记录";
+        }else if ($type_name ==5){
+            $type_name="开放实验室使用申请单";
+        }else if($type_name == 0){
+            $type_name="全部";
+        }
+        if ($form_status == 1){
+            $form_status = "审批中";
+        }else if($form_status == 2){
+            $form_status = "未通过";
+        }else if($form_status == 3){
+            $form_status = "已通过";
+        }else if ($form_status == 0){
+            $form_status = "全部";
+        }
         $j = 0;
         $data = null;
         for($i = 0;$i<count($data1);$i++){
-            if($type_name == 0 && $form_status == 0) {
-
+            if($type_name == "全部" && $form_status == "全部") {
                 $data = $data1;
                 break;
-            }else if($form_status == 0){
-
-                if ($type_name ==1){
-                    $type_name="实验室借用申请表单";
-                }else if ($type_name ==2){
-                    $type_name="期末实验教学检查记录表";
-                }else if ($type_name ==3){
-                    $type_name ="实验室仪器设备借用单";
-                }else if ($type_name ==4){
-                    $type_name="实验室运行记录";
-                }else if ($type_name ==5){
-                    $type_name="开放实验室使用申请单";
-                }
+            }else if($form_status == "全部"){
                 if ($data1[$i]['type_id'] == $type_name){
                     $data[$j]['form_id']=$data1[$i]['form_id'];
                     $data[$j]['form_status']=$data1[$i]['form_status'];
                     $data[$j]['type_id']=$data1[$i]['type_id'];
                     $j++;
                 }
-            }else if($type_name == 0){
-                if ($form_status == 1){
-                    $form_status = "审批中";
-                }else if($form_status == 2){
-                    $form_status = "未通过";
-                }else if($form_status == 3){
-                    $form_status = "已通过";
-                }
+            }else if($type_name == "全部"){
                 if ($data1[$i]['form_status'] == $form_status){
                     $data[$j]['form_id']=$data1[$i]['form_id'];
                     $data[$j]['form_status']=$data1[$i]['form_status'];
                     $data[$j]['type_id']=$data1[$i]['type_id'];
                     $j++;
                 }
-
-
             }else{
-
-                if ($form_status == 1){
-                    $form_status = "审批中";
-                }else if($form_status == 2){
-                    $form_status = "未通过";
-                }else if($form_status == 3){
-                    $form_status = "已通过";
-                }
-                if ($type_name ==1){
-                    $type_name="实验室借用申请表单";
-                }else if ($type_name ==2){
-                    $type_name="期末实验教学检查记录表";
-                }else if ($type_name ==3){
-                    $type_name ="实验室仪器设备借用单";
-                }else if ($type_name ==4){
-                    $type_name="实验室运行记录";
-                }else if ($type_name ==5){
-                    $type_name="开放实验室使用申请单";
-                }
                 if ($data1[$i]['type_name'] == $type_name && $data1[$i]['form_status'] == $form_status){
                         $data[$j]['form_id']=$data1[$i]['form_id'];
                         $data[$j]['form_status']=$data1[$i]['form_status'];
@@ -232,7 +210,7 @@ class ShowController extends Controller
      */
     public function SelectEquipment(EquipmentIdRequest $request){
         $equipment_id = $request['equipment_id'];
-        $data = Equipment::tsy_equipmentSelect($equipment_id);
+        $data = Equipment::tsy_SelectById($equipment_id);
         if ($data == null){
             return json_fail("查找对应的设备失败",$data,200);
         }

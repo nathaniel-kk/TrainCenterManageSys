@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use http\Exception;
 use Illuminate\Database\Eloquent\Model;
 
 class EquipmentBorrow extends Model
@@ -62,6 +63,24 @@ class EquipmentBorrow extends Model
         }catch(Exception $e){
             logError("存入数据库失败",[$e->getMessage()]);
             return null;
+        }
+    }
+    /**
+     * 插入失败后删除
+     * @author tangshengyou
+     * @param
+     *  $form_id 表单编号
+     * @return array
+     */
+    public static function tsy_delete($form_id)
+    {
+        try {
+            self::where('$form_id', $form_id)
+                ->delate();
+            return true;
+        } catch (Exception $e) {
+            logError("查找失败", [$e->getMessage()]);
+            return false;
         }
     }
 
