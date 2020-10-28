@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -35,4 +34,17 @@ Route::prefix('check')->namespace('DataScreen')->group(function (){
 });
 
 
+Route::prefix('eqlen')->namespace('DataScreen')->group(function(){
+    Route::get('recentwait','EquipmentLendController@recentWait');
+    Route::get('recentlend','EquipmentLendController@recentLend');
+    Route::get('isoverdue','EquipmentLendController@isOverdue');
+    Route::get('facultylend','EquipmentLendController@facultyLend');
+    Route::get('recentlendnum','EquipmentLendController@recentLendNum');
+    Route::get('recentlendsum','EquipmentLendController@recentLendSum');
 
+});
+
+Route::prefix('check')->namespace('DataScreen')->group(function(){
+    Route::get('checkedlab','EquipmentLendController@checkedLab');
+    Route::get('teachercheck','EquipmentLendController@teacherCheck');
+});
