@@ -1,7 +1,10 @@
 <?php
 
 use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\Route;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -89,6 +92,39 @@ Route::prefix('fill')->namespace('Fill')->group(function () {
     Route::get('viewopenlabmanuse', 'OpenLabUseController@viewOpenLabManUse'); //开放实验室使用申请人员名单展示
 });
 
+
+Route::get('test','TestController@test');
+
+Route::prefix('site')->namespace('DataScreen')->group(function (){
+    Route::get('/showxibu','SiteScreenController@xibuborrow');
+    Route::get('/usingsite','SiteScreenController@usingsite');
+    Route::get('/siteranking','SiteScreenController@siteranking');
+    Route::get('/sitenumber','SiteScreenController@sitenumber');
+    Route::get('/openlab','SiteScreenController@openlab');
+
+});
+
+Route::prefix('check')->namespace('DataScreen')->group(function (){
+    Route::get('/safecheck','CheckController@SafeCheck');
+    Route::get('/checkcount','CheckController@checkcount');
+    Route::get('/checkstatis','CheckController@checkStatistics');
+});
+
+
+Route::prefix('eqlen')->namespace('DataScreen')->group(function(){
+    Route::get('recentwait','EquipmentLendController@recentWait');
+    Route::get('recentlend','EquipmentLendController@recentLend');
+    Route::get('isoverdue','EquipmentLendController@isOverdue');
+    Route::get('facultylend','EquipmentLendController@facultyLend');
+    Route::get('recentlendnum','EquipmentLendController@recentLendNum');
+    Route::get('recentlendsum','EquipmentLendController@recentLendSum');
+
+});
+
+Route::prefix('check')->namespace('DataScreen')->group(function(){
+    Route::get('checkedlab','EquipmentLendController@checkedLab');
+    Route::get('teachercheck','EquipmentLendController@teacherCheck');
+
 /**
  * @author yangsiqi <github.com/Double-R111>
  */
@@ -115,5 +151,6 @@ Route::prefix('approval')->namespace('Approval')->group(function () {//审批展
 Route::prefix('approval')->namespace('Approval')->group(function(){
     Route::get('pass','ExamController@pass');//审核通过
     Route::post('noPass','ExamController@noPass');//审核不通过
+
 });
 
