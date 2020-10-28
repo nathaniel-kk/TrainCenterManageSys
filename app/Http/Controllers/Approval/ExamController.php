@@ -8,7 +8,6 @@ use App\Http\Requests\IdRequest;
 use App\Models\Approve;
 use App\Models\Form;
 use Illuminate\Http\Request;
-use function MongoDB\BSON\fromJSON;
 
 class ExamController extends Controller
 {
@@ -23,12 +22,6 @@ class ExamController extends Controller
         $info  = getDinginfo($request['code']);
         $role = $info->role;
         $name = $info->name;
-        //        借用部门负责人
-        //        实验室借用管理员
-        //        实验室中心主任
-        //        设备管理员
-        $role = '设备管理员';
-        $name = '设备管理员';
 
         $form_id = $request->get('form_id');
         $form_type = Form::findType($form_id);
@@ -60,12 +53,6 @@ class ExamController extends Controller
         $info  = getDinginfo($request['code']);
         $role = $info->role;
         $name = $info->name;
-        //        借用部门负责人
-        //        实验室借用管理员
-        //        实验室中心主任
-        //        设备管理员
-        $role = '借用部门负责人';
-        $name = '借用部门负责人';
 
         $form_id = $request->get('form_id');
         $form_type = Form::findType($form_id);

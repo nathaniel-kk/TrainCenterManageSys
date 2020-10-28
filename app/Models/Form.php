@@ -60,12 +60,12 @@ class Form extends Model
                 $lev = 7;
             }
             $data = Form::join('form_type', 'form.type_id', 'form_type.type_id')
-                ->join('form_status', 'form.form_status', 'form_status.status_id')
-                ->select('form.form_id', 'form.applicant_name', 'form_status.status_name', 'form_type.type_name')
-                ->where('form.form_status', '=', $lev)
-                ->where('form.applicant_name', '!=', $name)
-                ->orderby('form.created_at', 'desc')
-                ->get();
+                        ->join('form_status', 'form.form_status', 'form_status.status_id')
+                        ->select('form.form_id', 'form.applicant_name', 'form_status.status_name', 'form_type.type_name')
+                        ->where('form.form_status', '=', $lev)
+                        ->where('form.applicant_name', '!=', $name)
+                        ->orderby('form.created_at', 'desc')
+                        ->get();
             return $data ? $data : false;
         } catch (\Exception $e) {
             logError('表单信息展示错误', [$e->getMessage()]);

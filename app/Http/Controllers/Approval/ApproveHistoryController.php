@@ -56,8 +56,9 @@ class ApproveHistoryController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function selectType(SelectTypeRequest $request)
-    { $code=$request['code'];
-    $type_name=$request['type_name'];
+    {
+        $code=$request['code'];
+        $type_name=$request['type_name'];
         $infos = Form::ysq_searchType($type_name,$code);
         return $infos ?
             json_success('通过类型表单查询成功', $infos, 200) :
