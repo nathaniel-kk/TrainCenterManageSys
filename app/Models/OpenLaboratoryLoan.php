@@ -73,8 +73,15 @@ class OpenLaboratoryLoan extends Model
                 ->get();
             $res2 = OpenLaboratoryStudentList::where('form_id', $form_id)
                 ->get();
-            $res1['data'] = $res2;
-            return $res1 ? $res1 : false;
+
+            $res=[
+                "open_lab"=>$res1,
+                "open_lab_list"=>$res2
+            ];
+            return $res?
+            $res:
+             false;
+
         } catch (\Exception $e) {
             logError('搜索错误', [$e->getMessage()]);
             return false;

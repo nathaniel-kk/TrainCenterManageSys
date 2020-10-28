@@ -62,6 +62,7 @@ class Form extends Model
             }
 //            dd($name);
             $data = Form::join('form_type', 'form.type_id', 'form_type.type_id')
+
                 ->join('form_status', 'form.form_status', 'form_status.status_id')
                 ->join('approve', 'form.form_id', 'approve.form_id')
                 ->select('form.form_id', 'form.applicant_name', 'form_status.status_name', 'form_type.type_name')
@@ -74,6 +75,7 @@ class Form extends Model
                 ->where('form.applicant_name', '!=', $name)
                 ->orderby('form.created_at', 'desc')
                 ->get();
+
             return $data ? $data : false;
         } catch (\Exception $e) {
             logError('表单信息展示错误', [$e->getMessage()]);
@@ -393,13 +395,16 @@ class Form extends Model
             } elseif ($role == "设备管理员") {
                 $rule = 7;
             }
-            $res = Form::join('form_type', 'form.type_id', 'form_type.type_id')
-                ->select('form.form_id', 'form.applicant_name', 'form_type.type_name')
-                ->where('form.applicant_name', '!=', $name)
-                ->where('form.form_status', '=', $rule)
-                ->where('form.form_id', '=', $data)
-                ->orWhere('form.applicant_name', '=', $data)
-                ->orderBy('form.created_at', 'desc')
+
+            $res = Form::join('form_type','form.type_id','form_type.type_id')
+                ->select('form.form_id','form.applicant_name','form_type.type_name')
+                ->where('form.applicant_name','!=',$name)
+                ->where('form.form_status','=',$rule)
+                ->where('form.form_id','=',$data)
+                ->orWhere('form.form_id','like','%'.$data.'%')
+                ->where('form.applicant_name','=',$data)
+                ->orWhere('form.applicant_name','like','%'.$data.'%')
+                ->orderBy('form.created_at','desc')
                 ->get();
             return $res ?
                 $res :

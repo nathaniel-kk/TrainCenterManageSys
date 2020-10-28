@@ -71,9 +71,15 @@ class EquipmentBorrow extends Model
             $res2 = EquipmentBorrowChecklist::join('equipment', 'equipment.equipment_id', 'equipment_borrow_checklist.equipment_id')
                 ->where('equipment_borrow_checklist.form_id', '=', $form_id)
                 ->get();
-            $res1['data'] = $res2;
-            return $res1 ?
-                $res1 :
+
+
+            $res = [
+                "equ_bro"=>$res1,
+                "equ_bro_list"=>$res2
+            ];
+            return $res?
+                $res:
+
                 false;
         } catch (\Exception $e) {
             logError('搜索错误', [$e->getMessage()]);
