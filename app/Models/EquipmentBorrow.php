@@ -101,4 +101,35 @@ class EquipmentBorrow extends Model
             return null;
         }
     }
+
+    /**
+     * 获得实验室教学检查情况
+     * @author zhuxianglin <github.com/lybbor>
+     * @return void
+     */
+    public static function zxl_checkedlab(){
+        try{
+            $res=DB::table('checkedlab')->get();
+            return $res;
+        }catch(Exception $e){
+            logError('状态时失效！',[$e->getMessage()]);
+            return null;
+        }
+    }
+
+    /**
+     * 获得教师检查统计情况
+     * @author zhuxianglin <github.com/lybbor>
+     * @return void
+     */
+    public static function zxl_teachercheck(){
+        try{
+            $res=DB::table('teacher_check')->get();
+            return $res;
+        }catch(Exception $e){
+            logError('状态时失效！',[$e->getMessage()]);
+            return null;
+        }
+    }
+
 }

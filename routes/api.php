@@ -27,3 +27,8 @@ Route::prefix('eqlen')->namespace('DataScreen')->group(function(){
     Route::get('recentlendsum','EquipmentLendController@recentLendSum');
 
 });
+
+Route::prefix('check')->namespace('DataScreen')->group(function(){
+    Route::get('checkedlab','EquipmentLendController@checkedLab');
+    Route::get('teachercheck','EquipmentLendController@teacherCheck');
+});

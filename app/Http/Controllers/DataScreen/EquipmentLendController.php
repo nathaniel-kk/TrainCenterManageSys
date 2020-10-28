@@ -82,4 +82,29 @@ class EquipmentLendController extends Controller
         json_success("获取近期借用设备数量成功!",$res,200):
         json_fail("获取近期借用设备数量失败!",null,100);
     }
+
+    /**
+     * 实验室教学检查情况
+     * @author zhuxianglin <github.com/lybbor>
+     * @return json
+     */
+    public function checkedLab(){
+        $res=EquipmentBorrow::zxl_checkedlab();
+        return $res!=null?
+        json_success("获取实验室教学检查情况成功!",$res,200):
+        json_fail("获取实验室教学检查情况失败!",null,100);
+    }
+
+    /**
+     * 教师检查统计
+     * @author zhuxianglin <github.com/lybbor>
+     * @return json
+     */
+    public function teacherCheck(){
+        $res=EquipmentBorrow::zxl_teachercheck();
+        return $res!=null?
+        json_success("获取教师检查统计成功!",$res,200):
+        json_fail("获取教师检查统计失败!",null,100);
+    }
+
 }
