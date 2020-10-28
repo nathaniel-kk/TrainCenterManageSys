@@ -24,7 +24,8 @@ class EquipmentBorrow extends Model
             $res2 = EquipmentBorrowChecklist::join('equipment','equipment.equipment_id','equipment_borrow_checklist.equipment_id')
                 ->where('equipment_borrow_checklist.form_id','=',$form_id)
                 ->get();
-            $res1['data']=$res2;
+            $res1['data1']=$res1;
+            $res1['data2']=$res2;
             return $res1?
                 $res1:
                 false;
