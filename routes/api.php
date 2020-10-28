@@ -27,3 +27,12 @@ Route::prefix('site')->namespace('DataScreen')->group(function (){
     Route::get('/openlab','SiteScreenController@openlab');
 
 });
+
+Route::prefix('check')->namespace('DataScreen')->group(function (){
+    Route::get('/safecheck','CheckController@SafeCheck');
+    Route::get('/checkcount','CheckController@checkcount');
+    Route::get('/checkstatis','CheckController@checkStatistics');
+});
+
+
+
