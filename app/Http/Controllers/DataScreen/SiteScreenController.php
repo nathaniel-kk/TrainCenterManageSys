@@ -8,11 +8,9 @@ use Illuminate\Http\Request;
 
 class SiteScreenController extends Controller
 {
-    //
-    //
-
     /**
      * 系部展示
+     * @author yuanshuxin <github.com/CoderYsx>
      * @return \Illuminate\Http\JsonResponse
      */
     public function xibuborrow(){
@@ -26,6 +24,7 @@ class SiteScreenController extends Controller
 
     /**
      * 使用中的场地展示
+     * @author yuanshuxin <github.com/CoderYsx>
      * @return \Illuminate\Http\JsonResponse
      */
     public function usingsite(){
@@ -40,6 +39,7 @@ class SiteScreenController extends Controller
 
     /**
      * 场地使用排名
+     * @author yuanshuxin <github.com/CoderYsx>
      * @return \Illuminate\Http\JsonResponse
      */
     public function siteranking(){
@@ -53,6 +53,7 @@ class SiteScreenController extends Controller
 
     /**
      * 场地使用数量
+     * @author yuanshuxin <github.com/CoderYsx>
      * @return \Illuminate\Http\JsonResponse
      */
     public function sitenumber(){

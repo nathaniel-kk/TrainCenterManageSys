@@ -8,7 +8,11 @@ use Illuminate\Http\Request;
 
 class CheckController extends Controller
 {
-    //
+    /**
+     * 实验室安全检查情况
+     * @author yuanshuxin <github.com/CoderYsx>
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function SafeCheck(){
         //echo "安全";
         $res=TeachingInspectionInfo::ysx_safecheck();
@@ -17,6 +21,12 @@ class CheckController extends Controller
             \json_fail('获取失败!',null,'100');
 
     }
+
+    /**
+     * 巡检数量统计
+     * @author yuanshuxin <github.com/CoderYsx>
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function checkcount(){
         //echo "数量";
         $res=TeachingInspectionInfo::ysx_checkcount();
@@ -25,6 +35,11 @@ class CheckController extends Controller
             \json_fail('获取失败!',null,'100');
     }
 
+    /**
+     * 实验室检查统计
+     * @author yuanshuxin <github.com/CoderYsx>
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function checkStatistics(){
         //echo "统计";
         $res=TeachingInspectionInfo::ysx_checkStatistics();

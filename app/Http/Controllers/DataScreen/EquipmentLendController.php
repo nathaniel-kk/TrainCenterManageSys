@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class EquipmentLendController extends Controller
 {
-    
+
     /**
      * 近期待还设备
      * @author zhuxianglin <github.com/lybbor>
@@ -54,7 +54,7 @@ class EquipmentLendController extends Controller
      */
     public function facultyLend(){
         $res=EquipmentBorrow::zxl_getfacultylend();
-        return $res!=null?
+        return $res != null?
         json_success("获取系部借用设备成功!",$res,200):
         json_fail("获取系部借用设备失败!",null,100);
     }

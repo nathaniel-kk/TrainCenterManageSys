@@ -10,6 +10,12 @@ class Laboratory extends Model
     public $timestamps = true;
     protected $guarded = [];
 
+
+    /**
+     * 系部展示
+     * @author yuanshuxin <github.com/CoderYsx>
+     * @return \Illuminate\Http\JsonResponse
+     */
     public static function ysx_showxibu(){
 
         try {
@@ -20,6 +26,12 @@ class Laboratory extends Model
             return null;
         }
     }
+
+    /**
+     * 使用中的场地展示
+     * @author yuanshuxin <github.com/CoderYsx>
+     * @return \Illuminate\Http\JsonResponse
+     */
      public static function ysx_showusing(){
 
          try {
@@ -31,6 +43,12 @@ class Laboratory extends Model
          }
      }
 
+
+    /**
+     * 场地排名
+     * @author yuanshuxin <github.com/CoderYsx>
+     * @return \Illuminate\Http\JsonResponse
+     */
      public static function ysx_showranking(){
          try {
              $res = DB::table('siteranking')->get();
@@ -40,7 +58,11 @@ class Laboratory extends Model
              return null;
          }
      }
-
+    /**
+     * 开放实验室
+     * @author yuanshuxin <github.com/CoderYsx>
+     * @return \Illuminate\Http\JsonResponse
+     */
      public static function ysx_showopenlab(){
          try {
              $res = DB::table('openlab')->get();
@@ -50,7 +72,11 @@ class Laboratory extends Model
              return null;
          }
      }
-
+    /**
+     * 场地数量
+     * @author yuanshuxin <github.com/CoderYsx>
+     * @return \Illuminate\Http\JsonResponse
+     */
      public static function ysx_shownumber(){
          try {
              $res = DB::table('sitenumber')->get();
