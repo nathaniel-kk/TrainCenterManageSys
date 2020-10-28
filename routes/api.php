@@ -32,7 +32,7 @@ Route::prefix('/fill')->namespace('Fill')->group(function () {
 
 });
 
-<<<<<<< HEAD
+
 Route::get('test','TestController@test');
 /**
  * @author tangshengyou
@@ -89,7 +89,6 @@ Route::prefix('fill')->namespace('Fill')->group(function () {
     Route::get('viewopenlabmanuse', 'OpenLabUseController@viewOpenLabManUse'); //开放实验室使用申请人员名单展示
 });
 
-=======
 /**
  * @author yangsiqi <github.com/Double-R111>
  */
@@ -117,4 +116,4 @@ Route::prefix('approval')->namespace('Approval')->group(function(){
     Route::get('pass','ExamController@pass');//审核通过
     Route::post('noPass','ExamController@noPass');//审核不通过
 });
->>>>>>> 910c6eff3461aa5a69ae2ebde154dec6f3903723
+
