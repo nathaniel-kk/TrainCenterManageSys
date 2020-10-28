@@ -63,6 +63,7 @@ class OpenLaboratoryLoan extends Model
             return $res?
             $res:
              false;
+
         } catch (\Exception $e) {
             logError('搜索错误', [$e->getMessage()]);
             return false;

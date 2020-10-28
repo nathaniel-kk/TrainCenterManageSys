@@ -370,7 +370,9 @@ class Form extends Model
                 ->where('form.applicant_name','!=',$name)
                 ->where('form.form_status','=',$rule)
                 ->where('form.form_id','=',$data)
-                ->orWhere('form.applicant_name','=',$data)
+                ->orWhere('form.form_id','like','%'.$data.'%')
+                ->where('form.applicant_name','=',$data)
+                ->orWhere('form.applicant_name','like','%'.$data.'%')
                 ->orderBy('form.created_at','desc')
                 ->get();
             return $res?
