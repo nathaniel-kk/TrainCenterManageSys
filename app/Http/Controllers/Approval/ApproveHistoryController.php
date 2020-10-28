@@ -18,13 +18,13 @@ class ApproveHistoryController extends Controller
 {
     /**
      * 展示当前权限所有表单信息
-     * @author yangsiqi <github.com/Double-R111>
      * @param ShowAllRequest $request
      * @return \Illuminate\Http\JsonResponse
+     * @author yangsiqi <github.com/Double-R111>
      */
     public function showAll(ShowAllRequest $request)
     {
-        $code=$request['code'];
+        $code = $request['code'];
         $infos = Form::ysq_getAll($code);
         return $infos ?
             json_success('表单展示成功', $infos, 200) :
@@ -34,15 +34,15 @@ class ApproveHistoryController extends Controller
 
     /**
      * 通过申请人姓名和表单编号模糊查询表单
-     * @author yangsiqi <github.com/Double-R111>
      * @param SearchFormRequest $request
      * @return \Illuminate\Http\JsonResponse
+     * @author yangsiqi <github.com/Double-R111>
      */
     public function searchForm(SearchFormRequest $request)
     {
-        $id=$request['form_id'];
-        $code=$request['code'];
-        $infos = Form::ysq_Query($id,$code);
+        $id = $request['form_id'];
+        $code = $request['code'];
+        $infos = Form::ysq_Query($id, $code);
         return $infos ?
             json_success('表单查询成功', $infos, 200) :
             json_fail('表单查询失败', null, 100);
@@ -51,14 +51,15 @@ class ApproveHistoryController extends Controller
     /**
      * 通过类型查找表单
      * @param $data
-     * @author yangsiqi <github.com/Double-R111>
      * @param ShowAllRequest $request
      * @return \Illuminate\Http\JsonResponse
+     * @author yangsiqi <github.com/Double-R111>
      */
     public function selectType(SelectTypeRequest $request)
-    { $code=$request['code'];
-    $type_name=$request['type_name'];
-        $infos = Form::ysq_searchType($type_name,$code);
+    {
+        $code = $request['code'];
+        $type_name = $request['type_name'];
+        $infos = Form::ysq_searchType($type_name, $code);
         return $infos ?
             json_success('通过类型表单查询成功', $infos, 200) :
             json_fail('通过类型表单查询失败', null, 100);
@@ -68,18 +69,20 @@ class ApproveHistoryController extends Controller
      * 分类展示各表单详情
      * @param ReshowAllRequest $request
      * @return \Illuminate\Http\JsonResponse
+     * @author yangsiqi <github.com/Double-R111>
      */
     public function reshowAll(ReshowAllRequest $request)
     {
-        $form_id=$request['form_id'];
+        $form_id = $request['form_id'];
+        $code = $request['code'];
         $num = Form::ysq_reshowAll($form_id);
         $m = 0;
         if ($num == 1) {
-            $m = LaboratoryLoan::ysq_reshowLab($form_id);
+            $m = LaboratoryLoan::ysq_reshowLab($form_id,$code);
         } elseif ($num == 3) {
-            $m = EquipmentBorrow::ysq_reshowIns($form_id);
+            $m = EquipmentBorrow::ysq_reshowIns($form_id,$code);
         } elseif ($num == 5) {
-            $m = OpenLaboratoryLoan::ysq_reshowOpenLab($form_id);
+            $m = OpenLaboratoryLoan::ysq_reshowOpenLab($form_id,$code);
         }
         return $m ?
             json_success('分类表单展示成功', $m, 200) :
