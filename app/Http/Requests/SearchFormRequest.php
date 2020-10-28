@@ -2,12 +2,11 @@
 
 namespace App\Http\Requests;
 
-
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
-class IdRequest extends FormRequest
+class SearchFormRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,13 +26,11 @@ class IdRequest extends FormRequest
     public function rules()
     {
         return [
-            'code'=>'required',
-            'form_id'=>'required'
+            'code' => 'required',
+            'form_id' => 'required'
         ];
     }
-    /**
-     * @param Validator $validator
-     */
+
     protected function failedValidation(Validator $validator)
     {
         throw (new HttpResponseException(json_fail(422, '参数错误!', $validator->errors()->all(), 422)));
