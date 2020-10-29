@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Fill;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\TeachMoveRequest;
+use App\Http\Requests\Fill\WriteController\TeachAddRequest;
+use App\Http\Requests\Fill\WriteController\TeachMoveRequest;
 use App\Models\Laboratory;
 use App\Models\TeachingInspection;
 use App\Models\TeachingInspectionInfo;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
@@ -48,7 +48,8 @@ class WriteController extends Controller{
          * @param TeachAddRequest $request
          * return json
          */
-    public function teachAdd(Request $request)
+
+    public function teachAdd(TeachAddRequest $request)
     {
         $data = $request['data'];
         for ($i = 0; $i < count($data); $i++) {
@@ -60,6 +61,7 @@ class WriteController extends Controller{
                 'operating_condition' => 'required|String',
                 'remark' => 'required|String',
             ]);
+
             if ($validator->fails()){
                 throw(new HttpResponseException(json_fail('参数错误!',$validator->errors()->all(), 422)));
             }

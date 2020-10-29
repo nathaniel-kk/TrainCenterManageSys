@@ -10,7 +10,6 @@ class Laboratory extends Model
     public $timestamps = true;
     protected $guarded = [];
 
-
     /*
      * 把所有实验室名称给前端
      * @author caiwenpin <github.com/codercwp>
@@ -32,6 +31,7 @@ class Laboratory extends Model
       * @author caiwenpin <github.com/codercwp>
       * return $data
       */
+
     public static function cwp_move($name)
     {
         try {

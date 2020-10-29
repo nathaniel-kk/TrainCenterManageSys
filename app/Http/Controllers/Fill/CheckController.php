@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Fill;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ShowAllRequest;
-use App\Http\Requests\ShowOneRequest;
+
+
+use App\Http\Requests\Fill\CheckController\ShowAllRequest;
+use App\Http\Requests\Fill\CheckController\ShowOneRequest;
 use App\Models\TeachingInspectionInfo;
 
 
@@ -38,7 +40,8 @@ class CheckController extends Controller{
         $id = $data['laboratory_id'];
         $result =TeachingInspectionInfo::cwp_one($id);
         return $result?
-            json_success('成功!',$result,200):
+json_success('成功!',$result,200):
+
             json_fail('失败!',null,100);
     }
 
