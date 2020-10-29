@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Fill\FillLabBor;
 
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class ViewLabBorrowRequest extends FormRequest
+class FillLabBorLinkRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,7 +26,7 @@ class ViewLabBorrowRequest extends FormRequest
     public function rules()
     {
         return [
-            'form_id' => 'required|string',
+            'laboratory_name' => 'required|string',
         ];
     }
     /**

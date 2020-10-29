@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Fill;
 
-use App\Http\Requests\ViewLabBorrowRequest;
+use App\Http\Requests\Fill\OpenLabUse\OpenLabuseBorRequest;
+use App\Http\Requests\Fill\OpenLabUse\ViewLabBorrowRequest;
 use App\Models\Form;
 use App\Models\OpenLaboratoryLoan;
 use App\Models\OpenLaboratoryStudentList;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\OpenLabuseBorRequest;
 
 class OpenLabUseController extends Controller
 {
@@ -19,7 +19,7 @@ class OpenLabUseController extends Controller
      * @param OpenLabUseBorRequest $request
      * @return json
      */
-    Public function openLabUseBor(OpenLabUseBorRequest $request){
+    Public function openLabUseBor(OpenLabuseBorRequest $request){
         $infor = $request['infor'];
         for ($i=0;$i<count($infor);$i++){
             $validator = Validator::make($infor[$i],[

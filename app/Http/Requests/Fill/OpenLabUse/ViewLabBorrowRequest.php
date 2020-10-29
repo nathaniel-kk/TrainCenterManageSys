@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Fill\OpenLabUse;
 
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class OpenLabuseBorRequest extends FormRequest
+class ViewLabBorrowRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,11 +26,7 @@ class OpenLabuseBorRequest extends FormRequest
     public function rules()
     {
         return [
-            'code' => 'required|string',
-            'reason_use' => 'required|string',
-            'porject_name' => 'required|string',
-            'start_time' => 'required|date',
-            'end_time' => 'required|date',
+            'form_id' => 'required|string',
         ];
     }
     /**

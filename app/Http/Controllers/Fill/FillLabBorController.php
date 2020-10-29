@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\Fill;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\FillLabBorLinkRequest;
-use App\Http\Requests\FillLabBorrowRequest;
-use App\Http\Requests\FillLabNameDisRequest;
-use App\Http\Requests\ViewLabBorrowRequest;
+use App\Http\Requests\Fill\FillLabBor\FillLabBorLinkRequest;
+use App\Http\Requests\Fill\FillLabBor\FillLabBorrowRequest;
+use App\Http\Requests\Fill\OpenLabUse\ViewLabBorrowRequest;
 use App\Models\Clas;
 use App\Models\Form;
 use App\Models\Laboratory;
