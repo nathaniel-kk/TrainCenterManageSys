@@ -11,6 +11,20 @@ class Clas extends Model
     protected $guarded = [];
 
     /**
+     *
+     * @return |null
+     */
+    public static function lzz_classDrop(){
+        try {
+            $data = self::select('class_name')
+                        ->get();
+            return $data;
+        } catch(\Exception $e){
+            logError('专业班级下拉框错误',[$e->getMessage()]);
+            return null;
+        }
+    }
+    /**
      * 填报实验室借用申请学生班级展示
      * @author HuWeiChen <github.com/nathaniel-kk>
      * @return array

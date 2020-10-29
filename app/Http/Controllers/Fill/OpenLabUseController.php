@@ -19,7 +19,7 @@ class OpenLabUseController extends Controller
      * @param OpenLabUseBorRequest $request
      * @return json
      */
-    Public function openLabUseBor(OpenLabuseBorRequest $request){
+    Public function openLabUseBor(OpenLabUseBorRequest $request){
         $infor = $request['infor'];
         for ($i=0;$i<count($infor);$i++){
             $validator = Validator::make($infor[$i],[
